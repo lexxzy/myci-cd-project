@@ -18,5 +18,14 @@ pipeline {
 	    NEXUS_GRP_REPO   = "vpro-maven-group"
         NEXUS_LOGIN = "nexuslogin"
         ARTVERSION = "${env.BUILD_ID}"
+    
+    }
+
+    stages {
+        stage('Build'){
+            steps {
+                sh 'mvn -s settings.xml -DskipTests install'
+            }
+        }
     }
 }
