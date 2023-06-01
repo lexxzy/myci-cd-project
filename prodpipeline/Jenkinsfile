@@ -11,7 +11,7 @@ pipeline {
        service = "	vproappservice"
     }
 
-satges {
+stages {
     stage('Deploy to prod ecs') {
         steps {
             withAWS(credentials: 'awscreds', region: 'us-east-1'){
