@@ -14,7 +14,7 @@ services:
 
   vprocache01:
       image: memcached
-      port:
+      ports:
         - "11211:11211"
   vpromq01:
     image: rabbitmq
