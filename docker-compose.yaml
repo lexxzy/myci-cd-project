@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  vprodb:
+    build:
+      context: ./docker-file/db
+    image: lexxzy/vprofiledb
+    container_name: vprodb
+    ports:
+      - "3306:3306"
+    volumes:
+      - vprodbdata:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=lexDBPASS
+
+  vprocache01:
+      image: memcached
+      port:
+        - "11211:11211"
+  vpromq01:
+    image: rabbitmq
+    ports:
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+  vproapp:
+    build:
+      context: ./docker-file/app
+    image: lexxzy/vprofileapp
+    container_name: vproapp
+    ports:
+      - "8080:8080"
+    volumes:
+      - vproappdata:/user/local/tomcat/webapps
+  vproweb:
+    build:
+      context: ./docker-file/web
+    image: lexxzy/vprofileweb
+    container_name: vproweb
+    ports:
+      - "80:80"
+volumes:
+  vprodbdata : {}
+  vproappdata: {}
